@@ -57,7 +57,12 @@ public class RegisterFrame extends JFrame implements ActionListener {
             String tel = telText.getText();
             String major = majorText.getText();
 
-            if(password.equals(confirmPassword)) {
+            if (userid.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || tel.isEmpty() || major.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "입력되지 않은 정보가 있습니다. 모든 필드를 입력해주세요.");
+                return;
+            }
+
+            if (password.equals(confirmPassword)) {
                 try {
                     FileWriter writer = new FileWriter("user.txt", true);
                     writer.write(userid + ", " + password + ", " + tel + ", " + major + "\n");
@@ -68,12 +73,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "회원가입에 실패하였습니다. 다시 시도해주세요.");
                     ex.printStackTrace();
                 }
-            }
-            else
+            } else {
                 JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다!");
-
-        }
-        else if (e.getSource() == resetButton) {
+            }
+        } else if (e.getSource() == resetButton) {
             userText.setText("");
             passwordText.setText("");
             confirmPasswordText.setText("");
@@ -81,6 +84,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
             majorText.setText("");
         }
     }
+
 }
 
 

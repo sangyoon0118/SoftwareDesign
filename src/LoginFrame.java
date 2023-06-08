@@ -43,9 +43,13 @@ public class LoginFrame extends JFrame implements ActionListener {
         String line;
         while((line = buffer.readLine()) != null) {
             String[] token = line.split(", ");
+            if (token.length < 2) {
+                continue;
+            }
             userMap.put(token[0], token[1]);
         }
 
+        buffer.close();
         return userMap;
     }
 
@@ -61,8 +65,9 @@ public class LoginFrame extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
 
-
-            if (list.containsKey(user) && password.equals(list.get(user))) {
+            if (user == null || user.isEmpty() || password == null || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "사용자명과 비밀번호를 입력해주세요.");
+            } else if (list.containsKey(user) && password.equals(list.get(user))) {
                 JOptionPane.showMessageDialog(this, "로그인 되었습니다.");
                 new RestaurantReviewMainFrame();
             } else if (user.equals("administrator") && password.equals("0000")) {
@@ -74,6 +79,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == this.registerButton) {
             new RegisterFrame();
         }
-
     }
+
+
 }
