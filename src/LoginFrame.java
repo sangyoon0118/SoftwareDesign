@@ -57,9 +57,10 @@ public class LoginFrame extends JFrame implements ActionListener {
 
             try {
                 list = this.UserInformation();
-            } catch (IOException var6) {
-                throw new RuntimeException(var6);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
+
 
             if (list.containsKey(user) && password.equals(list.get(user))) {
                 JOptionPane.showMessageDialog(this, "로그인 되었습니다.");
